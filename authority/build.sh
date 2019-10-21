@@ -4,4 +4,4 @@
 
 set -x
 . build.properties
-docker build --force-rm  -t $REPO_NAME:latest .
+docker build --force-rm  -t $REPO_NAME:auth-latest .
