@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo local-port=$DNS_PORT > /etc/powerdns/pdns.conf
+echo launch=gpgsql >> /etc/powerdns/pdns.conf
+echo gpgsql-host=$PG_HOST >> /etc/powerdns/pdns.conf
+echo gpgsql-port=$PG_PORT >> /etc/powerdns/pdns.conf
+echo gpgsql-user=$PG_USER >> /etc/powerdns/pdns.conf
+echo gpgsql-dbname=$PG_DATABASE >> /etc/powerdns/pdns.conf
+echo gpgsql-password=$PG_PASSWORD >> /etc/powerdns/pdns.conf
+echo api-key=$API_KEY >> /etc/powerdns/pdns.conf
+echo 'disable-axfr=yes' >> /etc/powerdns/pdns.conf
+echo 'loglevel=3' >> /etc/powerdns/pdns.conf
+echo 'logging-facility=0' >> /etc/powerdns/pdns.conf
+echo 'version-string=powerdns' >> /etc/powerdns/pdns.conf
+echo 'include-dir=/etc/powerdns/pdns.d' >> /etc/powerdns/pdns.conf
+
+exec /usr/bin/dumb-init -cv "$@"
