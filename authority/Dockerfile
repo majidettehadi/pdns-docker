@@ -18,7 +18,7 @@ COPY files/powerdns.sql /etc/powerdns/powerdns.sql
 COPY files/pdns_entry /usr/local/bin/pdns_entry
 
 # According to DNS
-EXPOSE 8080 9573/tcp 9573/udp
+EXPOSE 8081 9573/tcp 9573/udp
 
 ENTRYPOINT ["/usr/local/bin/pdns_entry"]
 CMD ["/usr/sbin/pdns_server","--config-dir=/etc/powerdns"]
