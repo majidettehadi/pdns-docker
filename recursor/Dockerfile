@@ -1,23 +1,21 @@
 FROM majid7221/debian:stretch
 
-ENV DNS_PORT 9573
+ARG VERSION=44
+COPY files/pdns-pin /etc/apt/preferences.d/pdns
 
 RUN set -ex \
-    && echo 'deb [arch=amd64] http://repo.powerdns.com/debian stretch-rec-41 main' > /etc/apt/sources.list.d/pdns.list \
-    && echo 'Package: pdns-*' > /etc/apt/preferences.d/pdns \
-    && echo 'Pin: origin repo.powerdns.com' >> /etc/apt/preferences.d/pdns \
-    && echo 'Pin-Priority: 600' >> /etc/apt/preferences.d/pdns \
+    && echo 'deb [arch=amd64] http://repo.powerdns.com/debian stretch-rec-${VERSION} main' > /etc/apt/sources.list.d/pdns.list \
     && curl https://repo.powerdns.com/FD380FBB-pub.asc | apt-key add - \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         pdns-recursor \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 COPY files/recursor.conf /etc/powerdns/recursor.conf
-COPY files/entry.sh /entry.sh
+COPY files/docker-entry /docker-entry
 
-# According to DNS
-EXPOSE 9573/tcp 9573/udp
+# DNS Port
+EXPOSE 53/tcp 53/udp
 
-ENTRYPOINT ["/entry.sh"]
+ENTRYPOINT ["/docker-entry"]
 CMD ["/usr/sbin/pdns_recursor"]
