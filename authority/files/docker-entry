@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo local-port=$DNS_PORT > /etc/powerdns/pdns.conf
+echo local-port=53 > /etc/powerdns/pdns.conf
 echo launch=gpgsql >> /etc/powerdns/pdns.conf
 echo gpgsql-host=$PG_HOST >> /etc/powerdns/pdns.conf
 echo gpgsql-port=$PG_PORT >> /etc/powerdns/pdns.conf
