@@ -1,7 +1,7 @@
 FROM majid7221/debian:stretch
 
 ARG VERSION=44
-COPY pdns-pin /etc/apt/preferences.d/pdns
+COPY files/pdns-pin /etc/apt/preferences.d/pdns
 
 RUN set -ex \
     && echo "deb [arch=amd64] http://repo.powerdns.com/debian stretch-auth-${VERSION} main" > /etc/apt/sources.list.d/pdns.list \
